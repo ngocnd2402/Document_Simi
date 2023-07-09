@@ -12,11 +12,13 @@ The following similarity techniques are implemented and made available through a
 - TF-IDF (Term Frequency-Inverse Document Frequency)
 - Graph Edit Distance based on Levenshtein
 - Jaccard
+- Dice
 
 ### Semantic Similarity
 
 - Latent Semantic Analysis (LSA)
 - Word2Vec
+- SynSets
 
 ## Running Locally
 
