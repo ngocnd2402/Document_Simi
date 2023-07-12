@@ -9,8 +9,8 @@ The following similarity techniques are implemented and made available through a
 ### Typeface Similarity
 
 - Bag of Words
+- N-grams
 - TF-IDF (Term Frequency-Inverse Document Frequency)
-- Graph Edit Distance based on Levenshtein
 - Jaccard
 - Dice
 
