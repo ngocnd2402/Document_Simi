@@ -28,6 +28,7 @@ git clone https://github.com/ngocnd2402/Document_Simi
 pip install -r requirements.txt
 ```
 Then, download the weights of word2vec model in here: https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit?resourcekey=0-wjGZdNAUop6WykTtMip30g
+
 To run the application, use the command:
 ```bash
 python app.py
