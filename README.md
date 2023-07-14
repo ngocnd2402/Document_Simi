@@ -19,7 +19,7 @@ The following similarity techniques are implemented and made available through a
 - Jaccard
 - Dice
 
-## Running Locally
+## How to run
 
 To run the project locally, make sure you have Python 3.6 or higher installed. You can then clone the repository and install the required dependencies.
 
