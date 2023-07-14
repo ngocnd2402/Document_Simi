@@ -7,4 +7,4 @@ def jaccard_similarity(text1,text2):
 
 text1 = 'I have a dog and i love it'
 text2 = 'I have a dog and i love it'
-print(dice_similarity(text1, text2))
+print(jaccard_similarity(text1, text2))

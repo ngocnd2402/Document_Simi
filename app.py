@@ -48,7 +48,7 @@ def bow_similarity(text1, text2,n_gram = 1):
 
 @app.get("/BOW", response_class=HTMLResponse)
 async def compare_form_bow():
-    with open('static/Typeface/BoW/BOW.html', 'r') as f:
+    with open('static/Vector/BoW/BOW.html', 'r') as f:
         content = f.read()
     return content
 
@@ -71,7 +71,7 @@ def tfidf_similarity(text1, text2):
 
 @app.get("/TFIDF", response_class=HTMLResponse)
 async def compare_form_tfidf():
-    with open('static/Typeface/TF-IDF/TF-IDF.html', 'r') as f:
+    with open('static/Vector/TF-IDF/TF-IDF.html', 'r') as f:
         content = f.read()
     return content
 
@@ -96,7 +96,7 @@ def lsa_similarity(text1, text2, num_svd_components):
 
 @app.get("/LSA", response_class=HTMLResponse)
 async def compare_form_lsa():
-    with open('static/Semantic/LSA/LSA.html', 'r') as f:
+    with open('static/Vector/LSA/LSA.html', 'r') as f:
         content = f.read()
     return content
 
@@ -120,7 +120,7 @@ def word2vec_similarity(text1, text2):
 
 @app.get("/word2vec", response_class=HTMLResponse)
 async def compare_form_word2vec():
-    with open('static/Semantic/Word2Vec/W2V.html', 'r') as f:
+    with open('static/Vector/Word2Vec/W2V.html', 'r') as f:
         content = f.read()
     return content
 
@@ -138,7 +138,7 @@ def jaccard_similarity(text1,text2):
 
 @app.get("/Jaccard", response_class=HTMLResponse)
 async def compare_form_jaccard():
-    with open('static/Typeface/Jaccard/Jaccard.html', 'r') as f:
+    with open('static/Set/Jaccard/Jaccard.html', 'r') as f:
         content = f.read()
     return content
 
@@ -155,7 +155,7 @@ def dice_similarity(text1,text2):
 
 @app.get("/Dice", response_class=HTMLResponse)
 async def compare_form_dice():
-    with open('static/Typeface/Dice/Dice.html', 'r') as f:
+    with open('static/Set/Dice/Dice.html', 'r') as f:
         content = f.read()
     return content
 
@@ -167,7 +167,7 @@ async def compare_texts_dice(doc1: str = Form(...), doc2: str = Form(...)) -> di
 
 # @app.get("/GED", response_class=HTMLResponse)
 # async def compare_form_jaccard():
-#     with open('static/Typeface/GED/GED.html', 'r') as f:
+#     with open('static/Vector/GED/GED.html', 'r') as f:
 #         content = f.read()
 #     return content
 
@@ -190,7 +190,7 @@ def ngram_similarity(text1, text2, n_gram):
 
 @app.get("/ngram", response_class=HTMLResponse)
 async def compare_form_ngram():
-    with open('static/Typeface/Ngrams/Ngrams.html', 'r') as f:
+    with open('static/Vector/Ngrams/Ngrams.html', 'r') as f:
         content = f.read()
     return content
 
@@ -236,7 +236,7 @@ def document_path_similarity(doc1, doc2):
 
 @app.get("/synset", response_class=HTMLResponse)
 async def compare_form_synsets():
-    with open('static/Semantic/SynSet/synset.html', 'r') as f:
+    with open('static/Vector/SynSet/synset.html', 'r') as f:
         content = f.read()
     return content
 
