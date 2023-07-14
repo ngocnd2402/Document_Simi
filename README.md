@@ -6,27 +6,25 @@ DocSimi is a comprehensive web application built using FastAPI backend that prov
 
 The following similarity techniques are implemented and made available through an easy-to-use interface:
 
-### Typeface Similarity
+### Vector representation
 
 - Bag of Words
 - N-grams
 - TF-IDF (Term Frequency-Inverse Document Frequency)
-- Jaccard
-- Dice
-
-### Semantic Similarity
-
+- SynSets
 - Latent Semantic Analysis (LSA)
 - Word2Vec
-- SynSets
+
+### Set representation
+- Jaccard
+- Dice
 
 ## Running Locally
 
 To run the project locally, make sure you have Python 3.6 or higher installed. You can then clone the repository and install the required dependencies.
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/DocSimi.git
-cd DocSimi
+git clone https://github.com/ngocnd2402/Document_Simi
 pip install -r requirements.txt
 ```
 
