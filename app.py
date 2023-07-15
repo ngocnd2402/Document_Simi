@@ -88,7 +88,7 @@ def lsa_similarity(text1, text2, num_svd_components):
     corpus.append(text2)
     vectorizer = TfidfVectorizer(stop_words='english', smooth_idf=True)
     tfidf = vectorizer.fit_transform(corpus)
-    svd = TruncatedSVD(num_svd_components)
+    svd = TruncatedSVD(num_svd_components, random_state = 500)
     lsa = make_pipeline(svd, Normalizer(copy=False, norm='l2'))
     tfidf_lsa = lsa.fit_transform(tfidf)
     similarity = cosine_similarity(tfidf_lsa[-2].reshape(1, -1), tfidf_lsa[-1].reshape(1, -1))
