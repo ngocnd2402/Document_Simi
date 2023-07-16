@@ -17,8 +17,9 @@ def lsa_similarity(text1, text2, num_svd_components):
     vectorizer = TfidfVectorizer(stop_words='english', smooth_idf=True)
     tfidf = vectorizer.fit_transform(corpus)
     svd = TruncatedSVD(num_svd_components, random_state=500)
-    lsa = make_pipeline(svd, Normalizer(copy=False, norm='l2'))
-    tfidf_lsa = lsa.fit_transform(tfidf)
+    tfidf_lsa = svd.fit_transform(tfidf)
+    normalizer = Normalizer(copy=False, norm='l2')
+    tfidf_lsa = normalizer.fit_transform(tfidf_lsa)
     similarity = cosine_similarity(tfidf_lsa[-2].reshape(1, -1), tfidf_lsa[-1].reshape(1, -1))
     return abs(similarity[0][0])
 
