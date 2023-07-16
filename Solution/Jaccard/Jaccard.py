@@ -21,9 +21,9 @@ def jaccard_similarity(doc1, doc2):
     for term in terms2:
         if term not in union:
             union.append(term)
-
+    if len(union) == 0:
+        return 0
     jaccard_coefficient = float(len(intersection)) / len(union)
-
     return jaccard_coefficient
 
 text1 = 'I have a dog and i love it'
