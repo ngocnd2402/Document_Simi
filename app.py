@@ -130,12 +130,35 @@ async def compare_texts_word2vec(doc1: str = Form(...), doc2: str = Form(...)) -
     similarity = word2vec_similarity(doc1, doc2)
     return {"similarity": round(similarity, 4)}
 
-def jaccard_similarity(text1,text2):
-    set1 = set(text1.split())
-    set2 = set(text2.split())
-    intersection = len(set1.intersection(set2))
-    union = len(set1.union(set2))
-    return intersection / union if union != 0 else 0
+def jaccard_preprocess(document):
+    """Preprocess the document: remove non-letter characters, convert to lower case"""
+    words = re.sub(r'\W', ' ', document).lower().split()
+    return words
+
+def jaccard_unique_terms(doc1, doc2):
+    """Create sets of unique terms for two documents"""
+    terms1 = list(set(jaccard_preprocess(doc1)))
+    terms2 = list(set(jaccard_preprocess(doc2)))
+    return terms1, terms2
+
+def jaccard_similarity(doc1, doc2):
+    """Calculate Jaccard coefficient"""
+    terms1, terms2 = jaccard_unique_terms(doc1, doc2)
+
+    intersection = [value for value in terms1 if value in terms2]
+
+    union = terms1.copy()
+    for term in terms2:
+        if term not in union:
+            union.append(term)
+
+    if len(union) == 0:
+        return 0
+
+    jaccard_coefficient = float(len(intersection)) / len(union)
+
+    return jaccard_coefficient
+
 
 @app.get("/Jaccard", response_class=HTMLResponse)
 async def compare_form_jaccard():
@@ -162,16 +185,14 @@ def dice_unique_terms(doc1, doc2):
 def dice_similarity(doc1, doc2):
     """Calculate Jaccard and Dice coefficients"""
     terms1, terms2 = dice_unique_terms(doc1, doc2)
-
     intersection = [value for value in terms1 if value in terms2]
-
     union = terms1.copy()
     for term in terms2:
         if term not in union:
-            union.append(term)
-
+            union.append(term)       
+    if len(union) == 0:
+        return 0
     dice_coefficient = float(2 * len(intersection)) / (len(terms1) + len(terms2))
-
     return dice_coefficient
 
 @app.get("/Dice", response_class=HTMLResponse)
