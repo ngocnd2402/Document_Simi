@@ -15,52 +15,45 @@ nlp = spacy.load('en_core_web_sm')
 word2vec = KeyedVectors.load_word2vec_format(r'D:/UIT/Năm 2/Kỳ 4/Tính toán đa phương tiện/Document similarity/Doc2Vec/GoogleNews-vectors-negative300.bin/GoogleNews-vectors-negative300.bin', binary=True)
 
 oov_vector = np.zeros((300,))
-def word2vec_similarity(text1, text2):
-    # B1: Preprocessing
-    text1 = nlp(text1.lower())
-    text2 = nlp(text2.lower())
 
-    # tokenize and remove stop words and punctuation
-    text1_tokens = []
-    for token in text1:
+# Function for preprocessing
+def preprocess_text(text):
+    text = nlp(text.lower())
+    tokens = []
+    for token in text:
         if not token.is_stop and not token.is_punct:
-            text1_tokens.append(token.lemma_)
+            tokens.append(token.lemma_)
+    return tokens
 
-    text2_tokens = []
-    for token in text2:
-        if not token.is_stop and not token.is_punct:
-            text2_tokens.append(token.lemma_)
-
-    # B2: Create vector representation
-    vector1 = []
-    for word in text1_tokens:
+# Function for creating vector representation
+def create_vector(tokens):
+    vector = []
+    for word in tokens:
         if word in word2vec.key_to_index:
-            vector1.append(word2vec[word])
+            vector.append(word2vec[word])
         else:
-            vector1.append(oov_vector)
-    vector1 = np.mean(vector1, axis=0)
+            vector.append(oov_vector)
+    vector = np.mean(vector, axis=0)
+    vector = vector.reshape(1, -1)
+    vector = normalize(vector, norm='l1')
+    return vector
 
-    vector2 = []
-    for word in text2_tokens:
-        if word in word2vec.key_to_index:
-            vector2.append(word2vec[word])
-        else:
-            vector2.append(oov_vector)
-    vector2 = np.mean(vector2, axis=0)
-
-    # B3: Compare
-    vector1 = vector1.reshape(1, -1)
-    vector1 = normalize(vector1, norm='l1')
-
-    vector2 = vector2.reshape(1, -1)
-    vector2 = normalize(vector2, norm='l1')
-
+# Function for comparison
+def compare_vectors(vector1, vector2):
     cosine_similarity_value = cosine_similarity(vector1, vector2)[0][0]
-
     return float(cosine_similarity_value)
 
+# Use the functions
+text1 = "your first text here"
+text2 = "your second text here"
+text1_tokens = preprocess_text(text1)
+text2_tokens = preprocess_text(text2)
+vector1 = create_vector(text1_tokens)
+vector2 = create_vector(text2_tokens)
+similarity = compare_vectors(vector1, vector2)
+print(f"The cosine similarity between the two texts is: {similarity}")
 
-
+# Calculate and print similarity of vectors
 word1 = 'king'
 word2 = 'man'
 word3 = 'woman'

@@ -7,20 +7,30 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import Normalizer
 from sklearn.preprocessing import normalize
 
-# Dùng thư viện
 def lsa_similarity(text1, text2, num_svd_components):
+
+    # Step1: Preprocess text 
     with open("TF_IDF/corpus.txt", "r", encoding='utf-8') as file:
         lines = file.readlines()
     corpus = [line.strip() for line in lines]
     corpus.append(text1)
     corpus.append(text2)
+
+    # Step2: Generating a term-document matrix
     vectorizer = TfidfVectorizer(stop_words='english', smooth_idf=True)
     tfidf = vectorizer.fit_transform(corpus)
+
+    # Step3: Conducting singular value decomposition (SVD)
     svd = TruncatedSVD(num_svd_components, random_state=500)
     tfidf_lsa = svd.fit_transform(tfidf)
+
+    # Normalizing the output from SVD for better comparison
     normalizer = Normalizer(copy=False, norm='l2')
     tfidf_lsa = normalizer.fit_transform(tfidf_lsa)
+
+    # Step4: Compute the similarity between different documents
     similarity = cosine_similarity(tfidf_lsa[-2].reshape(1, -1), tfidf_lsa[-1].reshape(1, -1))
+
     return abs(similarity[0][0])
 
 
