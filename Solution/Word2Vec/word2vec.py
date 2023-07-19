@@ -9,6 +9,8 @@ from sklearn.manifold import TSNE
 import spacy
 from sklearn.preprocessing import Normalizer
 from sklearn.preprocessing import normalize
+import re
+import string
 nlp = spacy.load('en_core_web_sm')
 
 # Load Doc2Vec model
@@ -18,12 +20,10 @@ oov_vector = np.zeros((300,))
 
 # Function for preprocessing
 def preprocess_text(text):
-    text = nlp(text.lower())
-    tokens = []
-    for token in text:
-        if not token.is_stop and not token.is_punct:
-            tokens.append(token.lemma_)
-    return tokens
+    text = text.lower() 
+    text = re.sub('[' + string.punctuation + ']', '', text)  
+    text = ' '.join(text.split())
+    return text
 
 # Function for creating vector representation
 def create_vector(tokens):
