@@ -110,3 +110,25 @@ document_path_scores = calc_similarity_scores_ordered(documents, document_path_s
 print('Spearman between Word2vec and groundtruth: ',spearmanr(word2vec_scores, gt_scores)[0])
 print('Spearman between LSA and groundtruth: ',spearmanr(lsa_scores, gt_scores)[0])
 print('Spearman between Synset and groundtruth: ',spearmanr(document_path_scores, gt_scores)[0])
+
+# Code chay 
+def spearman_correlation(x, y):
+    n = len(x)
+    if len(y) != n:
+        raise ValueError("Input lists must have the same length")
+    
+    rank_x = pd.Series(x).rank()
+    rank_y = pd.Series(y).rank()
+    
+    diff = rank_x - rank_y
+    squared_diff = diff ** 2
+    
+    return 1 - (6 * squared_diff.sum()) / (n * (n**2 - 1))
+
+word2vec_spearman = spearman_correlation(word2vec_scores, gt_scores)
+lsa_spearman = spearman_correlation(lsa_scores, gt_scores)
+synset_spearman = spearman_correlation(document_path_scores, gt_scores)
+
+print('Spearman between Word2vec and groundtruth: ', word2vec_spearman)
+print('Spearman between LSA and groundtruth: ', lsa_spearman)
+print('Spearman between Synset and groundtruth: ', synset_spearman)
